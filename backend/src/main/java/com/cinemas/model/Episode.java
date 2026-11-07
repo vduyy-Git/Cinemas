@@ -21,7 +21,9 @@ public class Episode {
     private Season season;
     @Column(name="episode_number", nullable=false)
     private Integer episodeNumber;
+    @Column(name="title")
     private String title;
+    @Column(name="description")
     private String description;
     @Column(name="thumbnail_url")
     private String thumbnailUrl;

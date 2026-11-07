@@ -23,7 +23,7 @@ public class Comment {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="parent_id")
     private Comment parent;
-    @Column(nullable=false)
+    @Column(name="content", nullable=false)
     private String content;
     @Column(name="is_hidden", nullable=false)
     private boolean hidden;

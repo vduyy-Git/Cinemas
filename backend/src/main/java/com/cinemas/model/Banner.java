@@ -15,7 +15,9 @@ public class Banner {
     private Movie movie;
     @Column(name="image_url", nullable=false)
     private String imageUrl;
+    @Column(name="title")
     private String title;
+    @Column(name="link")
     private String link;
     @Column(name="sort_order")
     private Integer sortOrder=0;

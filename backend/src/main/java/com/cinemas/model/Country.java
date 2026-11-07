@@ -12,11 +12,11 @@ public class Country {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable=false, unique=true)
+    @Column(name="name", nullable=false, unique=true)
     private String name;
-    @Column(nullable=false, unique=true)
+    @Column(name="slug", nullable=false, unique=true)
     private String slug;
-    @Column(length=2)
+    @Column(name="code", length=2)
     private String code;
 }
 

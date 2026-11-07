@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 @Entity
@@ -20,14 +21,15 @@ public class Movie {
     private Long id;
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    @Column(nullable=false, columnDefinition="movie_type")
+    @Column(name="type", nullable=false, columnDefinition="movie_type")
     private MovieType type=MovieType.movie;
-    @Column(nullable=false)
+    @Column(name="title", nullable=false)
     private String title;
     @Column(name="original_title")
     private String originalTitle;
-    @Column(nullable=false, unique=true)
+    @Column(name="slug", nullable=false, unique=true)
     private String slug;
+    @Column(name="description")
     private String description;
     @Column(name="poster_url")
     private String posterUrl;
@@ -46,7 +48,7 @@ public class Movie {
     private Country country;
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    @Column(nullable=false, columnDefinition="movie_status")
+    @Column(name="status", nullable=false, columnDefinition="movie_status")
     private MovieStatus status=MovieStatus.draft;
     @Column(name="view_count", nullable=false)
     private Long viewCount=0L;
@@ -58,6 +60,18 @@ public class Movie {
     private OffsetDateTime createdAt;
     @Column(name="updated_at", nullable=false)
     private OffsetDateTime updatedAt;
+
+    @PrePersist
+    void onCreate() {
+        OffsetDateTime now = OffsetDateTime.now(ZoneOffset.UTC);
+        if (createdAt == null) createdAt = now;
+        updatedAt = now;
+    }
+
+    @PreUpdate
+    void onUpdate() {
+        updatedAt = OffsetDateTime.now(ZoneOffset.UTC);
+    }
 }
 
 

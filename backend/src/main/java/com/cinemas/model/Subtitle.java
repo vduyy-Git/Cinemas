@@ -17,9 +17,9 @@ public class Subtitle {
     private Episode episode;
     @Column(name="language_code", nullable=false)
     private String languageCode;
-    @Column(nullable=false)
+    @Column(name="label", nullable=false)
     private String label;
-    @Column(nullable=false)
+    @Column(name="url", nullable=false)
     private String url;
     @Column(name="is_default", nullable=false)
     private boolean defaultSubtitle;

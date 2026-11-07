@@ -13,12 +13,13 @@ public class Person {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable=false)
+    @Column(name="name", nullable=false)
     private String name;
-    @Column(nullable=false, unique=true)
+    @Column(name="slug", nullable=false, unique=true)
     private String slug;
     @Column(name="avatar_url")
     private String avatarUrl;
+    @Column(name="bio")
     private String bio;
     @Column(name="birth_date")
     private LocalDate birthDate;

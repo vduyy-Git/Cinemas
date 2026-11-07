@@ -18,6 +18,7 @@ public class Profile {
     @Column(columnDefinition = "uuid")
     private UUID id;
     // same id as auth.users
+    @Column(name = "username")
     private String username;
     @Column(name = "display_name")
     private String displayName;

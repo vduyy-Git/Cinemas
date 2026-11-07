@@ -41,6 +41,33 @@ create trigger on_auth_user_created
 after insert on auth.users
 for each row execute function handle_new_user();
 
+-- Supabase Auth Hook: đưa role do server quản lý vào app_metadata của access token.
+-- Bật hàm này tại Authentication > Hooks > Custom Access Token trong Supabase.
+create or replace function public.custom_access_token_hook(event jsonb)
+returns jsonb
+language plpgsql
+stable
+as $$
+declare
+  claims jsonb;
+  profile_role text;
+begin
+  select role::text into profile_role
+  from public.profiles
+  where id = (event->>'user_id')::uuid;
+
+  claims := event->'claims';
+  claims := jsonb_set(claims, '{app_metadata}', coalesce(claims->'app_metadata', '{}'::jsonb), true);
+  claims := jsonb_set(claims, '{app_metadata,role}', to_jsonb(coalesce(profile_role, 'user')), true);
+  return jsonb_set(event, '{claims}', claims, true);
+end;
+$$;
+
+grant usage on schema public to supabase_auth_admin;
+grant select on table public.profiles to supabase_auth_admin;
+grant execute on function public.custom_access_token_hook(jsonb) to supabase_auth_admin;
+revoke execute on function public.custom_access_token_hook(jsonb) from public, anon, authenticated;
+
 
 -- ============ HÀM KIỂM TRA QUYỀN ============
 create or replace function is_admin() returns boolean

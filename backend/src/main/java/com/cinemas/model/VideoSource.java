@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.OffsetDateTime;
+import org.hibernate.annotations.ColumnTransformer;
 @Entity
 @Table(name="video_sources")
 @Getter
@@ -19,9 +20,10 @@ public class VideoSource {
     @JoinColumn(name="episode_id", nullable=false)
     private Episode episode;
     @Convert(converter=VideoQualityConverter.class)
-    @Column(nullable=false, columnDefinition="video_quality")
+    @ColumnTransformer(read = "quality::text", write = "?::video_quality")
+    @Column(name="quality", nullable=false, columnDefinition="video_quality")
     private VideoQuality quality=VideoQuality.P720;
-    @Column(nullable=false)
+    @Column(name="url", nullable=false)
     private String url;
     @Column(name="server_name")
     private String serverName="Server 1";

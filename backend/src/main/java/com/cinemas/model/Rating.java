@@ -18,7 +18,7 @@ public class Rating {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="movie_id")
     private Movie movie;
-    @Column(nullable=false)
+    @Column(name="score", nullable=false)
     private Short score;
     @Column(name="created_at", nullable=false)
     private OffsetDateTime createdAt;

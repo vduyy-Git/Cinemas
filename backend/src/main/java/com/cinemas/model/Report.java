@@ -26,7 +26,7 @@ public class Report {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="comment_id")
     private Comment comment;
-    @Column(nullable=false)
+    @Column(name="reason", nullable=false)
     private String reason;
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)

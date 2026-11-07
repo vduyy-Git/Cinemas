@@ -22,6 +22,7 @@ public class Season {
     @Column(name = "season_number", nullable = false)
     private Integer seasonNumber;
 
+    @Column(name = "title")
     private String title;
 }
 

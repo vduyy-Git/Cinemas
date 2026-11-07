@@ -14,9 +14,11 @@ public class Notification {
     @ManyToOne(fetch=FetchType.LAZY, optional=false)
     @JoinColumn(name="user_id", nullable=false)
     private Profile user;
-    @Column(nullable=false)
+    @Column(name="title", nullable=false)
     private String title;
+    @Column(name="body")
     private String body;
+    @Column(name="link")
     private String link;
     @Column(name="is_read", nullable=false)
     private boolean read;

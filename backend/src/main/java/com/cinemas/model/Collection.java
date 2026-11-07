@@ -10,10 +10,11 @@ public class Collection {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable=false)
+    @Column(name="name", nullable=false)
     private String name;
-    @Column(nullable=false, unique=true)
+    @Column(name="slug", nullable=false, unique=true)
     private String slug;
+    @Column(name="description")
     private String description;
     @Column(name="sort_order")
     private Integer sortOrder=0;
